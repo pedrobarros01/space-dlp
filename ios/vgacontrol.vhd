@@ -80,7 +80,8 @@ begin
 		ELSIF rising_edge(clk_vga) THEN
 			IF column_pixel_aux = 799  then
 				count := count + 1;
-				IF count = R + S + P + Q THEN
+			END IF;
+			IF count = R + S + P + Q THEN
 					count := 0;
 					active_region_vertical <= '1';
 					row_pixel <= count;
@@ -102,7 +103,6 @@ begin
 					row_pixel <= count;
 					vsync_vga <= '1';
 				END IF;
-			END IF;
 		END IF;
 	end process vertical;	
 	active_region <= active_region_horizontal and active_region_vertical;
