@@ -86,19 +86,19 @@ begin
 					active_region_vertical <= '1';
 					row_pixel <= count;
 					vsync_vga <= '1';
-				ELSIF count <= R - 1 THen
+			ELSIF count <= R - 1 THen
 					active_region_vertical <= '1';
 					row_pixel <= count;
 					vsync_vga <= '1';
-				ELSIF count >= R and count <= R + S - 1 THEN
+			ELSIF count >= R and count <= R + S - 1 THEN
 					active_region_vertical <= '0';
 					row_pixel <= count;
 					vsync_vga <= '1';
-				ELSIF count >= R + S and count <= R + S + P - 1 THEN
+			ELSIF count >= R + S and count <= R + S + P - 1 THEN
 					active_region_vertical <= '0';
 					row_pixel <= count;
 					vsync_vga <= '0';
-				ELSIF count <= R + S + P and count <= R + S + P + Q - 1 then
+			ELSIF count <= R + S + P and count <= R + S + P + Q - 1 then
 					active_region_vertical <= '0';
 					row_pixel <= count;
 					vsync_vga <= '1';
