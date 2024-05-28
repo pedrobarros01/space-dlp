@@ -5,6 +5,7 @@ use ieee.numeric_std.all;
 entity divisorclock is
 port(
 	clk: in std_logic;
+	reset: in std_logic;
 	clkout: out std_logic
 );
 end divisorclock;
@@ -13,16 +14,15 @@ end divisorclock;
 architecture divisor of divisorclock is
 	signal clockaux: std_logic;
 begin
-	clock: process
-		variable cont: integer := 0;
-		variable descida: boolean := false;
+
+	process ( clk, reset)
 	begin
-		wait until rising_edge(clk);
-		cont := cont + 1;
-		if(cont = 2 ) then
-			clockaux <= not clockaux;
-			cont := 0;
+		if ( reset = '0' ) then
+			clkout	<=	'0';
+		elsif rising_edge (clk) then
+			clockaux <=	not (clockaux);
 		end if;
-	end process clock;
-	clkout <= clockaux;
+		clkout <= clockaux;
+	end process;
+	
 end divisor;

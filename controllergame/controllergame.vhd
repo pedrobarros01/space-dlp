@@ -11,9 +11,9 @@ package controllergame is
 		clock: in std_logic;
 		region: in std_logic;
 		column_pixel: in integer;
-		r: out std_logic_vector(3 downto 0);
-		g: out std_logic_vector(3 downto 0);
-		b: out std_logic_vector(3 downto 0)
+		R: out std_logic;
+		G: out std_logic;
+		B: out std_logic
 	);
 	end component;
 

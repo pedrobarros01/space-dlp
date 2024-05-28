@@ -8,40 +8,37 @@ port(
 	clock: in std_logic;
 	region: in std_logic;
 	column_pixel: in integer;
-	r: out std_logic_vector(3 downto 0);
-	g: out std_logic_vector(3 downto 0);
-	b: out std_logic_vector(3 downto 0)
+	R: out std_logic;
+	G: out std_logic;
+	B: out std_logic
 );
 end pixelgen;
 
 architecture behavior of pixelgen is
-	signal Raux: std_logic_vector(3 downto 0);
-	signal Gaux: std_logic_vector(3 downto 0);
-	signal Baux: std_logic_vector(3 downto 0);
-	
+	SIGNAL RGBp : STD_LOGIC_VECTOR(2 DOWNTO 0); -- Valor atual do pixel
+	SIGNAL RGBn : STD_LOGIC_VECTOR(2 DOWNTO 0);
 
 begin
-	Raux <= "1110" when column_pixel >= 0 and column_pixel < 200 ELSE
-			  "0000";
-	Gaux <= "1110" when column_pixel >= 200 and column_pixel < 400 ELSE
-			  "0000";
-	Baux <= "1110" when column_pixel >= 400 and column_pixel <= 639 ELSE
-			  "0000";
-	
+	 R <= RGBp(2) AND region;
+    G <= RGBp(1) AND region;
+    B <= RGBp(0) AND region;
+	 --80x80
+	RGBn <= "000" WHEN column_pixel = 0 ELSE -- Preto (Coluna = 0)
+                "001" WHEN column_pixel = 60 ELSE -- Azul (Coluna = 100)
+                "010" WHEN column_pixel = 120 ELSE -- Verde (Coluna = 200)
+                "011" WHEN column_pixel = 180 ELSE -- Ciano (Coluna = 300)
+                "100" WHEN column_pixel = 240 ELSE -- Vermelho (Coluna = 400)
+                "101" WHEN column_pixel = 300 ELSE -- Magenta (Coluna = 500)
+                "110" WHEN column_pixel = 360 ELSE -- Amarelo (Coluna = 600)
+                "111" WHEN column_pixel = 420 ELSE -- Branco (Coluna = 700)
+                RGBp; --Último valor definido
 
 	gerador: process(reset, clock)
 	begin
 		IF reset = '0' THEN
-			r <= "0000";
-			g <= "0000";
-			b <= "0000";
+			RGBp <= (others => '0');
 		ELSIF rising_edge(clock) THEN
-			IF(region = '1') THEN
-				r <= Raux;
-				g <= Gaux;
-				b <= Baux;
-			END IF;
-		
+			RGBp <= RGBn;	
 		END IF;
 	end process gerador;
 

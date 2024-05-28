@@ -21,16 +21,16 @@ architecture behavior of vgacontrol is
 	constant B: integer := 96;
 	constant C: integer := 48;
 	constant R: integer := 480;
-	constant S: integer := 11;
+	constant S: integer := 10;
 	constant P: integer := 2;
-	constant Q: integer := 31;
+	constant Q: integer := 33;
 	signal column_pixel_aux: integer := 0 ;
 	signal active_region_horizontal: std_logic := '0';
 	signal active_region_vertical: std_logic := '0';
 	
 begin
 	horizontal: process(rst, clk_vga)
-		variable count: integer range 0 to 800 := 0;
+		variable count: integer:= 0;
 	begin
 		IF rst = '0' THEN
 			count := 0;
@@ -39,28 +39,28 @@ begin
 			column_pixel <= 0;
 			active_region_horizontal <= '0';
 		ELSIF rising_edge(clk_vga) THEN
-			IF count = D + E + B + C THEN
+			IF count = 803 THEN
 				count := 0;
 				active_region_horizontal <= '1';
 				column_pixel <= count;
 				column_pixel_aux <= count;
 				hsync_vga <= '1';
-			ELSIF count <= D - 1 THEN
+			ELSIF count <= 639 THEN
 				active_region_horizontal <= '1';
 				column_pixel <= count;
 				column_pixel_aux <= count;
 				hsync_vga <= '1';
-			ELSIF count >= D and count <= D + E - 1 THEN
+			ELSIF count >= 640 and count <= 656 THEN
 				active_region_horizontal <= '0';
 				column_pixel <= count;
 				column_pixel_aux <= count;
 				hsync_vga <= '1';
-			ELSIF count >= D + E and count <= D + E + B - 1 THEN
+			ELSIF count >= 657 and count <= 753 THEN
 				active_region_horizontal <= '0';
 				column_pixel <= count;
 				column_pixel_aux <= count;
 				hsync_vga <= '0';
-			ELSIF count >= D + E + B and count <= D + E + B + c - 1 THEN
+			ELSIF count >= 754 and count <= 802 THEN
 				active_region_horizontal <= '0';
 				column_pixel <= count;
 				column_pixel_aux <= count;
@@ -70,7 +70,7 @@ begin
 		END IF;
 	end process horizontal;
 	vertical: process(rst, clk_vga)
-		variable count: integer range 0 to 524 := 0;
+		variable count: integer:= 0;
 	begin
 		IF rst = '0' THEN
 			count := 0;
@@ -78,27 +78,27 @@ begin
 			row_pixel <= 0;
 			active_region_vertical <= '0';
 		ELSIF rising_edge(clk_vga) THEN
-			IF column_pixel_aux = 799  then
+			IF column_pixel_aux = 802  then
 				count := count + 1;
 			END IF;
-			IF count = R + S + P + Q THEN
+			IF count = 527 THEN
 					count := 0;
 					active_region_vertical <= '1';
 					row_pixel <= count;
 					vsync_vga <= '1';
-			ELSIF count <= R - 1 THen
+			ELSIF count <= 479 THen
 					active_region_vertical <= '1';
 					row_pixel <= count;
 					vsync_vga <= '1';
-			ELSIF count >= R and count <= R + S - 1 THEN
+			ELSIF count >= 480 and count <= 490 THEN
 					active_region_vertical <= '0';
 					row_pixel <= count;
 					vsync_vga <= '1';
-			ELSIF count >= R + S and count <= R + S + P - 1 THEN
+			ELSIF count >= 491 and count <= 492 THEN
 					active_region_vertical <= '0';
 					row_pixel <= count;
 					vsync_vga <= '0';
-			ELSIF count <= R + S + P and count <= R + S + P + Q - 1 then
+			ELSIF count >= 493 and count <= 526 then
 					active_region_vertical <= '0';
 					row_pixel <= count;
 					vsync_vga <= '1';

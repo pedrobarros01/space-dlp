@@ -8,6 +8,7 @@ package auxiliadores is
 	component divisorclock is
 	port(
 		clk: in std_logic;
+		reset: in std_logic;
 		clkout: out std_logic
 	);
 	end component;
