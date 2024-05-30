@@ -5,6 +5,7 @@ library spaceinvaders;
 use spaceinvaders.ios.all;
 use spaceinvaders.controllergame.all;
 use spaceinvaders.auxiliadores.all;
+use spaceinvaders.tipagens.all;
 
 entity spaceinvaders is
 port(
@@ -23,6 +24,7 @@ architecture behavior of spaceinvaders is
 	signal column: integer;
 	signal regionativa: std_logic;
 	signal novoclock: std_logic;
+	signal pixel_list_coordinates_inv: list_coordinates_invasores;
 	
 	
 begin
@@ -41,11 +43,18 @@ begin
 		active_region => regionativa
 		
 	);
-	gene: pixelgen port map(
+	invs: invaderships port map(
 		reset => resetgeral,
 		clock => novoclock, 
+		pixel_invasores => pixel_list_coordinates_inv
+	);
+	draw: desenhotela port map(
+		reset => resetgeral,
+		clock => novoclock,
 		region => regionativa,
+		row_pixel => row,
 		column_pixel => column,
+		coord_inv => pixel_list_coordinates_inv,
 		R => red,
 		G => green,
 		B => blue
