@@ -12,5 +12,11 @@ package auxiliadores is
 		clkout: out std_logic
 	);
 	end component;
-
+	component clockdivideronehertz is
+	port(
+		clk: in std_logic;
+		reset: in std_logic;
+		clkout: out std_logic
+	);
+	end component;
 end package;
