@@ -33,6 +33,8 @@ package controllergame is
 		column_pixel: in integer;
 		coord_inv: in list_coordinates_invasores;
 		coord_player: in list_coordinates_players;
+		coord_shoot: in list_coordinates_shoots;
+		shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 		R: out std_logic;
 		G: out std_logic;
 		B: out std_logic
@@ -48,6 +50,15 @@ package controllergame is
 	
 	);
 	end component;
-	
+	component shotcontroller is
+	port(
+		reset: in std_logic;
+		clock: in std_logic;
+		tiro: in std_logic_vector(0 to quantidade_players - 1);
+		tiro_vez: inout std_logic_vector(0 to quantidade_players - 1);
+		coord_players: in list_coordinates_players;
+		coord_shot: inout list_coordinates_shoots
+	);
+	end component;
 
 end package;

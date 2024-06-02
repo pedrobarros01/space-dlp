@@ -13,6 +13,8 @@ port(
 	column_pixel: in integer;
 	coord_inv: in list_coordinates_invasores;
 	coord_player: in list_coordinates_players;
+	coord_shoot: in list_coordinates_shoots;
+	shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 	R: out std_logic;
 	G: out std_logic;
 	B: out std_logic
@@ -37,6 +39,12 @@ begin
 		variable inv_row_player_aux: integer;
 		variable inv_column_player_aux: integer;
 		variable active_sprite_player: std_logic;
+		
+		variable inv_row_shoot: integer;
+		variable inv_column_shoot: integer;
+		variable inv_row_shoot_aux: integer;
+		variable inv_column_shoot_aux: integer;
+		variable active_sprite_shoot: std_logic;
 	begin
 		IF reset = '0' THEN
 			RGBp <= "000";
@@ -79,6 +87,27 @@ begin
 					END IF;
 				END IF;
 			end loop;
+			FOR shoot in 0 to quantidade_players - 1 loop
+				IF shoot = 0 and shoot_turn(shoot) = '1' THEN
+					inv_row_shoot := coord_shoot(shoot)(0);
+					inv_column_shoot := coord_shoot(shoot)(1);
+					IF((row_pixel >= inv_row_shoot and row_pixel < inv_row_shoot + limit_row_sprite_shoot) 
+						and 
+						(column_pixel >= inv_column_shoot and column_pixel < inv_column_shoot + limit_column_sprite_shoot)
+					) THEN
+						inv_row_shoot_aux := row_pixel - inv_row_shoot;
+						inv_column_shoot_aux := column_pixel - inv_column_shoot;
+						active_sprite_shoot := sprite_shoot(inv_row_shoot_aux)(inv_column_shoot_aux);
+						IF active_sprite_shoot = '1' THEN
+							RGBp <= "010";
+						ELSE
+							RGBp <= "000";
+						END IF;
+					END IF;
+				END IF;
+			end loop;
+			
+			
 		END IF;
 	end process desenho;
 

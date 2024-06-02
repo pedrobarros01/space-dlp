@@ -12,6 +12,7 @@ port(
 	resetgeral: in std_logic;
 	clk: in std_logic;
 	movimentoplayer: in std_logic_vector(0 to 1);
+	tiroplayer: in std_logic_vector(0 to 1);
 	h_sync: out std_logic;
 	v_sync: out std_logic;
 	red: out std_logic;
@@ -28,6 +29,8 @@ architecture behavior of spaceinvaders is
 	signal novoclockplayer: std_logic;
 	signal pixel_list_coordinates_inv: list_coordinates_invasores;
 	signal coordinate_player: list_coordinates_players;
+	signal tiro_vez: std_logic_vector(0 to quantidade_players - 1) := "00";
+	signal coordinate_shoots: list_coordinates_shoots;
 	
 	
 begin
@@ -64,6 +67,15 @@ begin
 		movimento => movimentoplayer,
 		coord_player => coordinate_player 
 	);
+	shoot: shotcontroller port map(
+		reset => resetgeral,
+		clock => novoclockplayer,
+		tiro => tiroplayer,
+		tiro_vez => tiro_vez,
+		coord_players => coordinate_player,
+		coord_shot => coordinate_shoots
+	
+	);
 	draw: desenhotela port map(
 		reset => resetgeral,
 		clock => novoclock,
@@ -72,6 +84,8 @@ begin
 		column_pixel => column,
 		coord_inv => pixel_list_coordinates_inv,
 		coord_player => coordinate_player,
+		coord_shoot => coordinate_shoots,
+		shoot_turn => tiro_vez,
 		R => red,
 		G => green,
 		B => blue
