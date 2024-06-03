@@ -5,7 +5,7 @@ use ieee.std_logic_1164.all;
 package tipagens is
 constant dimension: integer := 2;
 constant quantidade_players: integer := 2;
-constant quantidade_invasores: integer := 45;
+constant quantidade_invasores: integer := 39;
 constant limit_column_sprite_player: integer := 32;
 constant limit_row_sprite_player: integer := 10; 
 constant limit_column_sprite_shoot: integer := 32;

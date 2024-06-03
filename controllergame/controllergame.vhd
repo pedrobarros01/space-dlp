@@ -20,7 +20,10 @@ package controllergame is
 	port(
 		reset: in std_logic;
 		clock: in std_logic;
-		pixel_invasores: out list_coordinates_invasores
+		mov_inv_vez: inout std_logic;
+		mov_esq_dir: inout std_logic;
+		state_desce: inout std_logic;
+		pixel_invasores: inout list_coordinates_invasores
 	);
 	
 	end component;

@@ -48,7 +48,7 @@ begin
 				coluna_tiro := coord_shot_aux(0)(1);
 				coord_shot_aux(0) <= (linha_tiro, coluna_tiro);
 			END IF;
-			IF(coord_shot_aux(1)(0) + 10 <= 0) THEN
+			IF(coord_shot_aux(1)(0) <= 10 ) THEN
 				tiro_vez_aux(1) <= '0';
 			ELSE
 				linha_tiro := coord_shot_aux(1)(0) - 2;

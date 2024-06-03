@@ -9,3 +9,4 @@ simulation/
 *.bak
 *.jic
 *.map
+.qsys_edit/
