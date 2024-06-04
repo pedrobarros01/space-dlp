@@ -37,6 +37,7 @@ package controllergame is
 		coord_inv: in list_coordinates_invasores;
 		coord_player: in list_coordinates_players;
 		coord_shoot: in list_coordinates_shoots;
+		life_invasores: in list_invasores_life;
 		shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 		R: out std_logic;
 		G: out std_logic;
@@ -61,6 +62,18 @@ package controllergame is
 		tiro_vez: inout std_logic_vector(0 to quantidade_players - 1);
 		coord_players: in list_coordinates_players;
 		coord_shot: inout list_coordinates_shoots
+	);
+	end component;
+	component collisioncontroller is
+	port(
+		reset: in std_logic;
+		clock: in std_logic;
+		coord_inv: in list_coordinates_invasores;
+		coord_shoot: in list_coordinates_shoots;
+		shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
+		life_invasores: out list_invasores_life;
+		colidiu: out std_logic
+
 	);
 	end component;
 

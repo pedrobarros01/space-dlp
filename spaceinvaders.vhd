@@ -34,7 +34,7 @@ architecture behavior of spaceinvaders is
 	signal mov_esq_dir: std_logic := '0';
 	signal mov_inv_vez: std_logic := '0';
 	signal state_desce: std_logic := '0';
-	
+	signal life_invasores: list_invasores_life;
 begin
 	onehertz: clockdivideronehertz port map(
 		clk => clk,
@@ -81,6 +81,8 @@ begin
 		coord_shot => coordinate_shoots
 	
 	);
+	
+
 	draw: desenhotela port map(
 		reset => resetgeral,
 		clock => novoclock,
@@ -90,10 +92,22 @@ begin
 		coord_inv => pixel_list_coordinates_inv,
 		coord_player => coordinate_player,
 		coord_shoot => coordinate_shoots,
+		life_invasores => life_invasores,
 		shoot_turn => tiro_vez,
 		R => red,
 		G => green,
 		B => blue
+	);
+	
+	collsion: collisioncontroller port map(
+		reset => resetgeral,
+		clock => novoclockplayer,
+		coord_inv => pixel_list_coordinates_inv,
+		coord_shoot => coordinate_shoots,
+		shoot_turn => tiro_vez,
+		life_invasores => life_invasores
+
+	
 	);
 
 end behavior;

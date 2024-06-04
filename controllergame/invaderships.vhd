@@ -38,59 +38,11 @@ begin
 			state_desce <= '0';
 		ELSIF rising_edge(clock) THEN
 			IF mov_inv_vez = '0' THEN
-				pixel_invasores_aux <= pixel_invasores_inicial;
+				pixel_invasores <= pixel_invasores_inicial;
 				state_desce <= '0';
 				mov_esq_dir <= '0';
 				mov_inv_vez <= '1';
-			ELSE
-				pixel_invasores_aux <= pixel_invasores;
-				FOR inv_ind_col in 0 to quantidade_invasores - 1 loop
-					IF mov_esq_dir = '0' THEN
-							IF(pixel_invasores_aux(0)(1) > 4 
-								and 
-								pixel_invasores_aux(13)(1) > 4 
-								and 
-								pixel_invasores_aux(26)(1) > 4)  THEN
-								inv_column := pixel_invasores_aux(inv_ind_col)(1) - 3;						
-								inv_row := pixel_invasores_aux(inv_ind_col)(0);
-							END IF;
-							IF	(pixel_invasores_aux(0)(1) <= 4 
-								and 
-								pixel_invasores_aux(13)(1) <= 4 
-								and 
-								pixel_invasores_aux(26)(1) <= 4) THEN
-								state_desce <= '1';
-								inv_column := pixel_invasores_aux(inv_ind_col)(1);
-								inv_row := pixel_invasores_aux(inv_ind_col)(0) + 10;
-								mov_esq_dir <= not mov_esq_dir;
-							END IF;
-					ELSE
-							IF(pixel_invasores_aux(12)(1) < 607 
-								and 
-								pixel_invasores_aux(25)(1) < 607 
-								and 
-								pixel_invasores_aux(38)(1) < 607) THEN
-								inv_column := pixel_invasores_aux(inv_ind_col)(1) + 3;	
-								inv_row := pixel_invasores_aux(inv_ind_col)(0);
-							END IF;
-							IF	(pixel_invasores_aux(12)(1) >= 607 
-								and 
-								pixel_invasores_aux(25)(1) >= 607 
-								and 
-								pixel_invasores_aux(38)(1) >= 607) THEN
-								state_desce <= '1';
-								inv_column := pixel_invasores_aux(inv_ind_col)(1);
-								inv_row := pixel_invasores_aux(inv_ind_col)(0) + 10;
-								mov_esq_dir <= not mov_esq_dir;
-							END IF;
-					
-					END IF;
-					pixel_invasores_aux(inv_ind_col)(1) <= inv_column;
-					pixel_invasores_aux(inv_ind_col)(0) <= inv_row;
-				end loop;
-				state_desce <= '0';
 			END IF;
-			pixel_invasores <= pixel_invasores_aux;
 		END IF;
 	end process invasor;
 

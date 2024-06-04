@@ -47,6 +47,7 @@ constant sprite_shoot: sprite_array_shoots := (
 "00000000000000111100000000000000",
 "00000000000000111100000000000000"
 );
+type list_invasores_life is array (0 to quantidade_invasores - 1) of integer;
 type list_coordinate_pixel is array(0 to dimension - 1) of integer;
 type list_coordinates_invasores is array(0 to quantidade_invasores - 1) of list_coordinate_pixel;
 type list_coordinates_players is array(0 to quantidade_players - 1) of list_coordinate_pixel;

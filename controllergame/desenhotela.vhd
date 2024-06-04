@@ -14,6 +14,7 @@ port(
 	coord_inv: in list_coordinates_invasores;
 	coord_player: in list_coordinates_players;
 	coord_shoot: in list_coordinates_shoots;
+	life_invasores: in list_invasores_life;
 	shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 	R: out std_logic;
 	G: out std_logic;
@@ -56,11 +57,12 @@ begin
 					(row_pixel >= inv_row and row_pixel < inv_row + limit_row_sprite_enemies) 
 					and 
 					(column_pixel >= inv_column and column_pixel < inv_column + limit_column_sprite_enemies)
+					
 					)THEN
 						inv_row_aux := row_pixel - inv_row;
 						inv_column_aux:= column_pixel - inv_column;
 						active_sprite := sprite_inv(inv_row_aux)(inv_column_aux);
-						IF active_sprite = '1' THEN
+						IF active_sprite = '1' and life_invasores(invasor) = 1 THEN
 							RGBp <= "100";
 						ELSE
 							RGBp <= "000";

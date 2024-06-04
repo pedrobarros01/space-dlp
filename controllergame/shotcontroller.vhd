@@ -24,8 +24,8 @@ begin
 		variable coluna_tiro: integer;
 	begin
 		IF reset = '0' THEN
-			coord_shot <= ((coord_players(0)(0) - 11, coord_players(0)(1)), (coord_players(1)(0) - 11, coord_players(1)(1)));
-			tiro_vez <= "00";
+			coord_shot_aux <= ((coord_players(0)(0) - 11, coord_players(0)(1)), (coord_players(1)(0) - 11, coord_players(1)(1)));
+			tiro_vez_aux <= "00";
 		ELSIF rising_edge(clock) THEN
 			IF(tiro_vez(0) = '0' AND tiro(0) = '0' ) THEN
 				tiro_vez_aux(0) <= '1';
@@ -36,7 +36,7 @@ begin
 			END IF;
 			IF(tiro_vez(1) = '0' AND tiro(1) = '1') THEN
 				tiro_vez_aux(1) <= '1';
-				coord_shot_aux(1) <= (coord_players(1)(0) - 11, coord_players(1)(1));
+				coord_shot_aux(1) <= (coord_players(1)(0) - 11, coord_players(1)(1) );
 			ELSE
 				tiro_vez_aux(1) <= '1';
 				coord_shot_aux(1) <= coord_shot(1);
