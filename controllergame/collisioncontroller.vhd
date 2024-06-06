@@ -12,7 +12,7 @@ port(
 	coord_shoot: in list_coordinates_shoots;
 	shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 	life_invasores: out list_invasores_life;
-	colidiu: out std_logic
+	tiro_collision: out std_logic_vector(0 to quantidade_players - 1)
 );
 end collisioncontroller;
 
@@ -24,6 +24,8 @@ architecture behavior of collisioncontroller is
                                                            1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                                                            1, 1, 1, 1, 1, 1, 1, 1, 1);
     signal life_invasores_aux: list_invasores_life := life_invasores_initial;
+	 signal tiro_vez_aux: std_logic_vector(0 to quantidade_players - 1);
+	 signal tiro_collision_aux: std_logic_vector(0 to quantidade_players - 1) := "00";
 begin
     collisor_shot_player_one_inv: process(reset, clock)
 		  variable player: integer := 0;
@@ -39,7 +41,9 @@ begin
         if reset = '0' then
             life_invasores <= life_invasores_initial;
         elsif rising_edge(clock) then
-				if shoot_turn(0) = '1' then
+				tiro_vez_aux <= shoot_turn;
+				if tiro_vez_aux(0) = '1' then
+					tiro_collision_aux(0) <= '0';
 					local_colidiu := '0';
 					linha_tiro_player := coord_shoot(0)(0);
 					coluna_tiro_player := coord_shoot(0)(1);
@@ -50,16 +54,18 @@ begin
 							  if (linha_tiro_player >= linha_invasor and linha_tiro_player < linha_invasor + limit_row_sprite_enemies) and
 								  (coluna_tiro_player >= coluna_invasor and coluna_tiro_player < coluna_invasor + limit_column_sprite_enemies) then
 									local_colidiu := '1';
+									tiro_collision_aux(0) <= '1';
 									life_invasores_aux(invasor) <= 0;
 							  else
 									life_invasores_aux(invasor) <= 1;
 							  end if;
 						 end if;
 					end loop;
-					colidiu <= local_colidiu;
-					life_invasores <= life_invasores_aux;
+				 else
+					tiro_collision_aux(0) <= '0';
 				end if;
-            
         end if;
+		  tiro_collision <= tiro_collision_aux;
+		  life_invasores <= life_invasores_aux;
     end process collisor_shot_player_one_inv;
 end behavior;

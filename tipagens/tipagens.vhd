@@ -1,14 +1,16 @@
 library ieee;
 use ieee.std_logic_1164.all;
-
+use ieee.math_real.uniform;
+use ieee.math_real.floor;
 
 package tipagens is
+function rand_int return integer;
 constant dimension: integer := 2;
 constant quantidade_players: integer := 2;
 constant quantidade_invasores: integer := 39;
 constant limit_column_sprite_player: integer := 32;
 constant limit_row_sprite_player: integer := 10; 
-constant limit_column_sprite_shoot: integer := 32;
+constant limit_column_sprite_shoot: integer := 6;
 constant limit_row_sprite_shoot: integer := 10;
 constant limit_column_sprite_enemies: integer := 32;
 constant limit_row_sprite_enemies: integer := 7;
@@ -36,20 +38,35 @@ constant sprite_player: sprite_array_player := (
 "00000000000000000000000000000000"
 );
 constant sprite_shoot: sprite_array_shoots := (
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000",
-"00000000000000111100000000000000"
+"011110",
+"011110",
+"011110",
+"011110",
+"011110",
+"011110",
+"011110",
+"011110",
+"011110",
+"011110"
 );
+type list_invasores_shoots_drawing is array (0 to 12) of integer;
 type list_invasores_life is array (0 to quantidade_invasores - 1) of integer;
 type list_coordinate_pixel is array(0 to dimension - 1) of integer;
 type list_coordinates_invasores is array(0 to quantidade_invasores - 1) of list_coordinate_pixel;
 type list_coordinates_players is array(0 to quantidade_players - 1) of list_coordinate_pixel;
 type list_coordinates_shoots is array(0 to quantidade_players - 1) of list_coordinate_pixel;
+type list_coordinates_shoots_invasores is array(0 to 12) of list_coordinate_pixel;
 end package;
+package body tipagens is
+	function rand_int return integer is
+		variable seed_one: positive := 1; 
+		variable seed_two: positive:= 1;
+		variable X: real;
+		variable saida: integer;
+	begin
+		uniform(seed_one, seed_two, X);
+		saida := integer(floor(X * 2.0));
+		return saida;
+	end rand_int;
+	
+end tipagens;

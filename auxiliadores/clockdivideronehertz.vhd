@@ -23,7 +23,7 @@ begin
 			temp <= '0';
 		ELSIF rising_edge(clk) THEN
 			count <= count + 1;
-			IF count = 25000000 THEN
+			IF count = 1666666 THEN
 				temp <= not temp;
 				count <= 1;
 			END IF;

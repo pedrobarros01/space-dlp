@@ -35,7 +35,11 @@ architecture behavior of spaceinvaders is
 	signal mov_inv_vez: std_logic := '0';
 	signal state_desce: std_logic := '0';
 	signal life_invasores: list_invasores_life;
-begin
+	signal tiro_collision: std_logic_vector(0 to quantidade_players - 1) := "00";
+	signal shot_turn_inv:  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
+	signal coord_shot_inv: list_coordinates_shoots_invasores;
+	signal sorteio_invasor: list_invasores_shoots_drawing;
+	begin
 	onehertz: clockdivideronehertz port map(
 		clk => clk,
 		reset => resetgeral,
@@ -78,7 +82,8 @@ begin
 		tiro => tiroplayer,
 		tiro_vez => tiro_vez,
 		coord_players => coordinate_player,
-		coord_shot => coordinate_shoots
+		coord_shot => coordinate_shoots,
+		tiro_collision => tiro_collision
 	
 	);
 	
@@ -94,6 +99,9 @@ begin
 		coord_shoot => coordinate_shoots,
 		life_invasores => life_invasores,
 		shoot_turn => tiro_vez,
+		coord_shot_inv => coord_shot_inv,
+		shot_turn_inv => shot_turn_inv,
+		sorteio_invasor => sorteio_invasor,
 		R => red,
 		G => green,
 		B => blue
@@ -105,8 +113,20 @@ begin
 		coord_inv => pixel_list_coordinates_inv,
 		coord_shoot => coordinate_shoots,
 		shoot_turn => tiro_vez,
+		tiro_collision => tiro_collision,
 		life_invasores => life_invasores
 
+	
+	);
+	shotinvasor: shotinvasorcontroller port map (
+		reset => resetgeral,
+		clock => novoclockplayer,
+		life_invasores => life_invasores,
+		coord_inv => pixel_list_coordinates_inv,
+		tiro_collision => tiro_collision,
+		coord_shot_inv => coord_shot_inv,
+		sorteio_invasor => sorteio_invasor,
+		shot_turn_inv => shot_turn_inv
 	
 	);
 

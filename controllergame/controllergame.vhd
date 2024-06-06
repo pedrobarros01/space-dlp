@@ -39,6 +39,9 @@ package controllergame is
 		coord_shoot: in list_coordinates_shoots;
 		life_invasores: in list_invasores_life;
 		shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
+		shot_turn_inv: in  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
+		coord_shot_inv: in list_coordinates_shoots_invasores;
+		 sorteio_invasor: in list_invasores_shoots_drawing;
 		R: out std_logic;
 		G: out std_logic;
 		B: out std_logic
@@ -61,7 +64,8 @@ package controllergame is
 		tiro: in std_logic_vector(0 to quantidade_players - 1);
 		tiro_vez: inout std_logic_vector(0 to quantidade_players - 1);
 		coord_players: in list_coordinates_players;
-		coord_shot: inout list_coordinates_shoots
+		coord_shot: inout list_coordinates_shoots;
+		tiro_collision: in std_logic_vector(0 to quantidade_players - 1)
 	);
 	end component;
 	component collisioncontroller is
@@ -70,10 +74,22 @@ package controllergame is
 		clock: in std_logic;
 		coord_inv: in list_coordinates_invasores;
 		coord_shoot: in list_coordinates_shoots;
-		shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
+		shoot_turn: inout std_logic_vector(0 to quantidade_players - 1);
 		life_invasores: out list_invasores_life;
-		colidiu: out std_logic
+		tiro_collision: out std_logic_vector(0 to quantidade_players - 1)
 
+	);
+	end component;
+	component shotinvasorcontroller is
+	port(
+		reset: in std_logic;
+		clock: in std_logic;
+		life_invasores: in list_invasores_life;
+		coord_inv: in list_coordinates_invasores;
+		tiro_collision: in std_logic_vector(0 to quantidade_players - 1);
+		coord_shot_inv: out list_coordinates_shoots_invasores;
+		sorteio_invasor: out list_invasores_shoots_drawing;
+		shot_turn_inv: inout std_logic_vector(0 to quantidade_invasores - 1)
 	);
 	end component;
 
