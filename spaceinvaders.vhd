@@ -36,9 +36,12 @@ architecture behavior of spaceinvaders is
 	signal state_desce: std_logic := '0';
 	signal life_invasores: list_invasores_life;
 	signal tiro_collision: std_logic_vector(0 to quantidade_players - 1) := "00";
+	signal tiro_collision_inv: std_logic_vector(0 to quantidade_players - 1) := "00";
 	signal shot_turn_inv:  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
 	signal coord_shot_inv: list_coordinates_shoots_invasores;
 	signal sorteio_invasor: list_invasores_shoots_drawing;
+	signal life_players: list_life_players;
+	signal coord_life: list_coordinates_life;
 	begin
 	onehertz: clockdivideronehertz port map(
 		clk => clk,
@@ -102,6 +105,7 @@ architecture behavior of spaceinvaders is
 		coord_shot_inv => coord_shot_inv,
 		shot_turn_inv => shot_turn_inv,
 		sorteio_invasor => sorteio_invasor,
+		coord_life => coord_life,
 		R => red,
 		G => green,
 		B => blue
@@ -113,8 +117,14 @@ architecture behavior of spaceinvaders is
 		coord_inv => pixel_list_coordinates_inv,
 		coord_shoot => coordinate_shoots,
 		shoot_turn => tiro_vez,
+		shot_turn_inv => shot_turn_inv,
+		sorteio_invasor => sorteio_invasor,
+		coord_player => coordinate_player,
+		coord_shot_inv => coord_shot_inv,
 		tiro_collision => tiro_collision,
-		life_invasores => life_invasores
+		life_invasores => life_invasores,
+		life_players => life_players,
+		tiro_collision_inv => tiro_collision_inv
 
 	
 	);
@@ -126,8 +136,15 @@ architecture behavior of spaceinvaders is
 		tiro_collision => tiro_collision,
 		coord_shot_inv => coord_shot_inv,
 		sorteio_invasor => sorteio_invasor,
-		shot_turn_inv => shot_turn_inv
-	
+		shot_turn_inv => shot_turn_inv,
+		tiro_collision_inv => tiro_collision_inv
+		
+	);
+	hud: hudgame port map (
+		reset => resetgeral,
+		clock => novoclockplayer,
+		life_players => life_players,
+		coord_life => coord_life
 	);
 
 end behavior;

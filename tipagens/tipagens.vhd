@@ -9,7 +9,7 @@ constant dimension: integer := 2;
 constant quantidade_players: integer := 2;
 constant quantidade_invasores: integer := 39;
 constant limit_column_sprite_player: integer := 32;
-constant limit_row_sprite_player: integer := 10; 
+constant limit_row_sprite_player: integer := 6; 
 constant limit_column_sprite_shoot: integer := 6;
 constant limit_row_sprite_shoot: integer := 10;
 constant limit_column_sprite_enemies: integer := 32;
@@ -26,10 +26,6 @@ constant sprite_inv: sprite_array_enemies := (
 "00000011001100000000011001000000",
 "00000000000011100111100000000000");
 constant sprite_player: sprite_array_player := (
-"00000000000000000000000000000000",
-"00000000000000000000000000000000",
-"00000000000000000000000000000000",
-"00000000000000000000000000000000",
 "00000000000000001000000000000000",
 "00000000000000111100000000000000",
 "00000000111111111111111110000000",
@@ -56,6 +52,8 @@ type list_coordinates_invasores is array(0 to quantidade_invasores - 1) of list_
 type list_coordinates_players is array(0 to quantidade_players - 1) of list_coordinate_pixel;
 type list_coordinates_shoots is array(0 to quantidade_players - 1) of list_coordinate_pixel;
 type list_coordinates_shoots_invasores is array(0 to 12) of list_coordinate_pixel;
+type list_life_players is array(0 to quantidade_players - 1) of integer;
+type list_coordinates_life is array(0 to 8) of list_coordinate_pixel;
 end package;
 package body tipagens is
 	function rand_int return integer is

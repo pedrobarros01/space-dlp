@@ -14,7 +14,8 @@ port(
 	tiro_collision: in std_logic_vector(0 to quantidade_players - 1);
 	coord_shot_inv: out list_coordinates_shoots_invasores;
 	sorteio_invasor: out list_invasores_shoots_drawing;
-	shot_turn_inv: inout std_logic_vector(0 to quantidade_invasores - 1)
+	shot_turn_inv: inout std_logic_vector(0 to quantidade_invasores - 1);
+	tiro_collision_inv: in std_logic_vector(0 to quantidade_players - 1)
 );
 end shotinvasorcontroller;
 
@@ -107,6 +108,7 @@ begin
 				ELSE
 					FOR ind in 0 to 12 loop
 						invasor := shots_inv_inds(ind);
+						
 						IF invasor /= -1 THEN
 							linha_inv := coord_shots_inv_aux(ind)(0);
 							coluna_inv := coord_shots_inv_aux(ind)(1);
@@ -126,6 +128,9 @@ begin
 						END IF;
 					end loop;
 					IF tiro_collision(0) = '1' THEN
+						shots_turn_inv := "000000000000000000000000000000000000000";
+					END IF;
+					IF tiro_collision_inv(0) = '1' THEN
 						shots_turn_inv := "000000000000000000000000000000000000000";
 					END IF;
 				END IF;

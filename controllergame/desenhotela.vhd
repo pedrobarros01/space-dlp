@@ -19,6 +19,7 @@ port(
 	shot_turn_inv: in  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
 	coord_shot_inv: in list_coordinates_shoots_invasores;
 	sorteio_invasor: in list_invasores_shoots_drawing;
+	coord_life: in list_coordinates_life;
 	R: out std_logic;
 	G: out std_logic;
 	B: out std_logic
@@ -57,6 +58,12 @@ begin
 		variable active_sprite_shoot_inv: std_logic;
 		variable invasor: integer;
 		variable shoot_turn_invasor: std_logic;
+		
+		variable inv_row_life: integer;
+		variable inv_column_life: integer;
+		variable inv_row_life_aux: integer;
+		variable inv_column_life_aux: integer;
+		variable active_sprite_life: std_logic;
 	begin
 		IF reset = '0' THEN
 			RGBp <= "000";
@@ -139,6 +146,26 @@ begin
 							ELSE
 								RGBp <= "000";
 							END IF;
+						END IF;
+					END IF;
+				END IF;
+			end loop;
+			
+			FOR life in 0 to 8 loop
+				inv_row_life := coord_life(life)(0);
+				inv_column_life := coord_life(life)(1);
+				IF inv_row_life /= -1 or inv_column_life /= -1 THEN
+					IF (
+					(row_pixel >= inv_row_life and row_pixel < inv_row_life + limit_row_sprite_player) 
+					and 
+					(column_pixel >= inv_column_life and column_pixel < inv_column_life + limit_column_sprite_player)) THEN
+						inv_row_life_aux := row_pixel - inv_row_life;
+						inv_column_life_aux:= column_pixel - inv_column_life;
+						active_sprite_life := sprite_player(inv_row_life_aux)(inv_column_life_aux);
+						IF active_sprite_life = '1' THEN
+								RGBp <= "010";
+						ELSE
+								RGBp <= "000";
 						END IF;
 					END IF;
 				END IF;
