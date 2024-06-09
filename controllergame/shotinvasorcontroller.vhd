@@ -133,6 +133,12 @@ begin
 					IF tiro_collision_inv(0) = '1' THEN
 						shots_turn_inv := "000000000000000000000000000000000000000";
 					END IF;
+					IF tiro_collision(1) = '1' THEN
+						shots_turn_inv := "000000000000000000000000000000000000000";
+					END IF;
+					IF tiro_collision_inv(1) = '1' THEN
+						shots_turn_inv := "000000000000000000000000000000000000000";
+					END IF;
 				END IF;
 			shot_turn_inv <= shots_turn_inv;
 			coord_shot_inv <= coord_shots_inv_aux;

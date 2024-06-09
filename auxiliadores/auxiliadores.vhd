@@ -19,4 +19,10 @@ package auxiliadores is
 		clkout: out std_logic
 	);
 	end component;
+	component display is
+	port(
+		number: in std_logic_vector(0 to 3);
+		pins_display: out std_logic_vector(0 to 6)
+	);
+	end component;
 end package;

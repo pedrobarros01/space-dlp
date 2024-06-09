@@ -42,7 +42,8 @@ package controllergame is
 		shot_turn_inv: in  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
 		coord_shot_inv: in list_coordinates_shoots_invasores;
 		sorteio_invasor: in list_invasores_shoots_drawing;
-		coord_life: in list_coordinates_life;
+		coord_life_player_one: in list_coordinates_life;
+		coord_life_player_two: in list_coordinates_life;
 		R: out std_logic;
 		G: out std_logic;
 		B: out std_logic
@@ -104,7 +105,17 @@ package controllergame is
 		reset: in std_logic;
 		clock: in std_logic;
 		life_players: in list_life_players;
-		coord_life: out list_coordinates_life
+		coord_life_player_one: out list_coordinates_life;
+		coord_life_player_two: out list_coordinates_life
+	);
+	end component;
+	component scoreboard is
+	port(
+		reset: in std_logic;
+		clock: in std_logic;
+		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
+		score_segment_player_one: out list_display_player_score;
+		score_Segment_player_two: out list_display_player_score
 	);
 	end component;
 

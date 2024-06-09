@@ -22,11 +22,11 @@ begin
 	--movimento(0) - esquerda
 	--movimento(1) - direita
 	mov_player: process(reset, clock)
-		variable mov_size: integer := 50;
+		variable mov_size: integer := 2;
 		variable mov_column: integer;
 	begin
 		IF reset = '0' THEN
-			coord_player <= coord_player_mov;
+			coord_player(player) <= coord_player_mov(player);
 		ELSIF rising_edge(clock) THEN
 				IF movimento(0) = '0' and movimento(1) = '1'  THEN
 					mov_column := coord_player_mov(player)(1) - mov_size;
@@ -42,7 +42,7 @@ begin
 					coord_player_mov(player)(1) <= mov_column;
 				END IF;
 		END IF;
-		coord_player <= coord_player_mov;
+		coord_player(player) <= coord_player_mov(player);
 	end process mov_player;
 
 end behavior;

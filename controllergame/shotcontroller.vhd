@@ -37,15 +37,15 @@ begin
 				coord_shot_aux(0) <= (coord_players(0)(0) - 11, coord_players(0)(1) + 16);
 			END IF;
 			
-			
-			IF(tiro_vez(1) = '0' AND tiro(1) = '1') THEN
-				tiro_vez_aux(1) <= '1';
-				coord_shot_aux(1) <= (coord_players(1)(0) - 11, coord_players(1)(1) + 16);
-			ELSE
+			IF(tiro_vez(1) = '1') THEN
 				tiro_vez_aux(1) <= '1';
 				coord_shot_aux(1) <= coord_shot(1);
+			ELSIF(tiro_vez(1) = '0' AND tiro(1) = '1' ) THEN
+				tiro_vez_aux(1) <= '1';
+				coord_shot_aux(1) <= (coord_players(1)(0) - 11, coord_players(1)(1) + 16);
 			END IF;
 			
+		
 			IF tiro_vez_aux(0) = '1' THEN
 				IF(coord_shot_aux(0)(0) <= 10) THEN
 					tiro_vez_aux(0) <= '0';

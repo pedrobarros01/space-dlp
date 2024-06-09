@@ -54,6 +54,9 @@ type list_coordinates_shoots is array(0 to quantidade_players - 1) of list_coord
 type list_coordinates_shoots_invasores is array(0 to 12) of list_coordinate_pixel;
 type list_life_players is array(0 to quantidade_players - 1) of integer;
 type list_coordinates_life is array(0 to 8) of list_coordinate_pixel;
+type list_display_player_score is array(0 to quantidade_players - 1) of std_logic_vector(0 to 3);
+type list_rgb_players is array(0 to quantidade_players - 1) of std_logic_vector(0 to 2);
+constant cores_players: list_rgb_players :=( "010", "001" );
 end package;
 package body tipagens is
 	function rand_int return integer is

@@ -19,7 +19,8 @@ port(
 	shot_turn_inv: in  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
 	coord_shot_inv: in list_coordinates_shoots_invasores;
 	sorteio_invasor: in list_invasores_shoots_drawing;
-	coord_life: in list_coordinates_life;
+	coord_life_player_one: in list_coordinates_life;
+	coord_life_player_two: in list_coordinates_life;
 	R: out std_logic;
 	G: out std_logic;
 	B: out std_logic
@@ -64,6 +65,12 @@ begin
 		variable inv_row_life_aux: integer;
 		variable inv_column_life_aux: integer;
 		variable active_sprite_life: std_logic;
+		
+		variable inv_row_life_p_two: integer;
+		variable inv_column_life_p_two: integer;
+		variable inv_row_life_aux_p_two: integer;
+		variable inv_column_life_aux_p_two: integer;
+		variable active_sprite_life_p_two: std_logic;
 	begin
 		IF reset = '0' THEN
 			RGBp <= "000";
@@ -88,7 +95,6 @@ begin
 					END IF;
 			end loop;
 			FOR player in 0 to quantidade_players - 1 loop
-				IF player = 0 THEN
 					inv_row_player := coord_player(player)(0);
 					inv_column_player := coord_player(player)(1);
 					IF( 
@@ -100,15 +106,14 @@ begin
 						inv_column_player_aux := column_pixel - inv_column_player;
 						active_sprite_player := sprite_player(inv_row_player_aux)(inv_column_player_aux);
 						IF active_sprite_player = '1' THEN
-								RGBp <= "010";
+								RGBp <= cores_players(player);
 							ELSE
 								RGBp <= "000";
 							END IF;
 					END IF;
-				END IF;
 			end loop;
 			FOR shoot in 0 to quantidade_players - 1 loop
-				IF shoot = 0 and shoot_turn(shoot) = '1' THEN
+				IF shoot_turn(shoot) = '1' THEN
 					inv_row_shoot := coord_shoot(shoot)(0);
 					inv_column_shoot := coord_shoot(shoot)(1);
 					IF((row_pixel >= inv_row_shoot and row_pixel < inv_row_shoot + limit_row_sprite_shoot) 
@@ -119,7 +124,7 @@ begin
 						inv_column_shoot_aux := column_pixel - inv_column_shoot;
 						active_sprite_shoot := sprite_shoot(inv_row_shoot_aux)(inv_column_shoot_aux);
 						IF active_sprite_shoot = '1' THEN
-							RGBp <= "010";
+							RGBp <= cores_players(shoot);
 						ELSE
 							RGBp <= "000";
 						END IF;
@@ -152,8 +157,8 @@ begin
 			end loop;
 			
 			FOR life in 0 to 8 loop
-				inv_row_life := coord_life(life)(0);
-				inv_column_life := coord_life(life)(1);
+				inv_row_life := coord_life_player_one(life)(0);
+				inv_column_life := coord_life_player_one(life)(1);
 				IF inv_row_life /= -1 or inv_column_life /= -1 THEN
 					IF (
 					(row_pixel >= inv_row_life and row_pixel < inv_row_life + limit_row_sprite_player) 
@@ -164,6 +169,26 @@ begin
 						active_sprite_life := sprite_player(inv_row_life_aux)(inv_column_life_aux);
 						IF active_sprite_life = '1' THEN
 								RGBp <= "010";
+						ELSE
+								RGBp <= "000";
+						END IF;
+					END IF;
+				END IF;
+			end loop;
+			
+			FOR life_p_two in 0 to 8 loop
+				inv_row_life_p_two := coord_life_player_two(life_p_two)(0);
+				inv_column_life_p_two := coord_life_player_two(life_p_two)(1);
+				IF inv_row_life_p_two /= -1 or inv_column_life_p_two /= -1 THEN
+					IF (
+					(row_pixel >= inv_row_life_p_two and row_pixel < inv_row_life_p_two + limit_row_sprite_player) 
+					and 
+					(column_pixel >= inv_column_life_p_two and inv_column_life_p_two < inv_column_life + limit_column_sprite_player)) THEN
+						inv_row_life_aux_p_two := row_pixel - inv_row_life_p_two;
+						inv_column_life_aux_p_two:= column_pixel - inv_column_life_p_two;
+						active_sprite_life_p_two := sprite_player(inv_row_life_aux_p_two)(inv_column_life_aux_p_two);
+						IF active_sprite_life_p_two = '1' THEN
+								RGBp <= "001";
 						ELSE
 								RGBp <= "000";
 						END IF;
