@@ -52,6 +52,7 @@ architecture behavior of spaceinvaders is
 	signal coord_life_player_two: list_coordinates_life;
 	signal score_segment_player_one:  list_display_player_score;
 	signal score_Segment_player_two:  list_display_player_score;
+	signal powerup_players: list_powerup_player;
 	begin
 	coordinate_player(0) <= coordinate_player_one(0);
 	coordinate_player(1) <= coordinate_player_two(1);
@@ -126,6 +127,7 @@ architecture behavior of spaceinvaders is
 		sorteio_invasor => sorteio_invasor,
 		coord_life_player_one => coord_life_player_one,
 		coord_life_player_two => coord_life_player_two,
+		powerup_players => powerup_players,
 		R => red,
 		G => green,
 		B => blue
@@ -171,8 +173,16 @@ architecture behavior of spaceinvaders is
 		reset => resetgeral,
 		clock => novoclockplayer,
 		tiro_players_collision => tiro_collision,
+		powerup_players => powerup_players,
 		score_segment_player_one => score_segment_player_one,
 		score_Segment_player_two => score_Segment_player_two
+	);
+	powerup: powerupcontroller port map (
+		reset => resetgeral,
+		clock => novoclockplayer,
+		tiro_players_collision => tiro_collision,
+		powerup_players => powerup_players
+		
 	);
 	disp_p_one_dec: display port map(
 		number => score_segment_player_one(0),

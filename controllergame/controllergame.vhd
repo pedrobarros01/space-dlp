@@ -44,6 +44,7 @@ package controllergame is
 		sorteio_invasor: in list_invasores_shoots_drawing;
 		coord_life_player_one: in list_coordinates_life;
 		coord_life_player_two: in list_coordinates_life;
+		powerup_players: in list_powerup_player;
 		R: out std_logic;
 		G: out std_logic;
 		B: out std_logic
@@ -114,9 +115,17 @@ package controllergame is
 		reset: in std_logic;
 		clock: in std_logic;
 		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
+		powerup_players: in list_powerup_player;
 		score_segment_player_one: out list_display_player_score;
 		score_Segment_player_two: out list_display_player_score
 	);
 	end component;
-
+	component powerupcontroller is
+	port(
+		reset: in std_logic;
+		clock: in std_logic;
+		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
+		powerup_players: out list_powerup_player
+	);
+	end component;
 end package;

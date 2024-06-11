@@ -57,6 +57,8 @@ type list_coordinates_life is array(0 to 8) of list_coordinate_pixel;
 type list_display_player_score is array(0 to quantidade_players - 1) of std_logic_vector(0 to 3);
 type list_rgb_players is array(0 to quantidade_players - 1) of std_logic_vector(0 to 2);
 constant cores_players: list_rgb_players :=( "010", "001" );
+constant cores_powerups_players: list_rgb_players := ("111", "101");
+type list_powerup_player is array (0 to quantidade_players - 1) of integer;
 end package;
 package body tipagens is
 	function rand_int return integer is

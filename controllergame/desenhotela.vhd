@@ -21,6 +21,7 @@ port(
 	sorteio_invasor: in list_invasores_shoots_drawing;
 	coord_life_player_one: in list_coordinates_life;
 	coord_life_player_two: in list_coordinates_life;
+	powerup_players: in list_powerup_player;
 	R: out std_logic;
 	G: out std_logic;
 	B: out std_logic
@@ -123,7 +124,9 @@ begin
 						inv_row_shoot_aux := row_pixel - inv_row_shoot;
 						inv_column_shoot_aux := column_pixel - inv_column_shoot;
 						active_sprite_shoot := sprite_shoot(inv_row_shoot_aux)(inv_column_shoot_aux);
-						IF active_sprite_shoot = '1' THEN
+						IF active_sprite_shoot = '1' and powerup_players(shoot) = 1 THEN
+							RGBp <= cores_powerups_players(shoot);
+						ELSIF active_sprite_shoot = '1' THEN
 							RGBp <= cores_players(shoot);
 						ELSE
 							RGBp <= "000";
