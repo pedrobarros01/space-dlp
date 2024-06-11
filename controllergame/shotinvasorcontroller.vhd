@@ -108,23 +108,22 @@ begin
 				ELSE
 					FOR ind in 0 to 12 loop
 						invasor := shots_inv_inds(ind);
-						
+
 						IF invasor /= -1 THEN
 							linha_inv := coord_shots_inv_aux(ind)(0);
 							coluna_inv := coord_shots_inv_aux(ind)(1);
-							IF linha_inv >= 460 THEN
-								coord_shots_inv_aux(ind)(0) := linha_inv;
-								coord_shots_inv_aux(ind)(1) := coluna_inv;
-								shots_turn_inv := "000000000000000000000000000000000000000";
-							ELSE
-								linha_inv := linha_inv + 2;
-								coord_shots_inv_aux(ind)(0) := linha_inv;
-								coord_shots_inv_aux(ind)(1) := coluna_inv;
-								shots_turn_inv(invasor) := '1';
+							IF linha_inv /= -1 and coluna_inv /= -1 THEN
+								IF linha_inv >= 460 THEN
+									coord_shots_inv_aux(ind)(0) := linha_inv;
+									coord_shots_inv_aux(ind)(1) := coluna_inv;
+									shots_turn_inv := "000000000000000000000000000000000000000";
+								ELSE
+									linha_inv := linha_inv + 2;
+									coord_shots_inv_aux(ind)(0) := linha_inv;
+									coord_shots_inv_aux(ind)(1) := coluna_inv;
+									shots_turn_inv(invasor) := '1';
+								END IF;
 							END IF;
-						ELSE
-							coord_shots_inv_aux(ind) := (-1, -1);
-							shots_turn_inv := "000000000000000000000000000000000000000";
 						END IF;
 					end loop;
 					IF tiro_collision(0) = '1' THEN

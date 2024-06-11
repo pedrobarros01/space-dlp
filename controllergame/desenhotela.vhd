@@ -176,18 +176,18 @@ begin
 				END IF;
 			end loop;
 			
-			FOR life_p_two in 0 to 8 loop
-				inv_row_life_p_two := coord_life_player_two(life_p_two)(0);
-				inv_column_life_p_two := coord_life_player_two(life_p_two)(1);
-				IF inv_row_life_p_two /= -1 or inv_column_life_p_two /= -1 THEN
+			FOR life in 0 to 8 loop
+				inv_row_life := coord_life_player_two(life)(0);
+				inv_column_life := coord_life_player_two(life)(1);
+				IF inv_row_life /= -1 or inv_column_life /= -1 THEN
 					IF (
-					(row_pixel >= inv_row_life_p_two and row_pixel < inv_row_life_p_two + limit_row_sprite_player) 
+					(row_pixel >= inv_row_life and row_pixel < inv_row_life + limit_row_sprite_player) 
 					and 
-					(column_pixel >= inv_column_life_p_two and inv_column_life_p_two < inv_column_life + limit_column_sprite_player)) THEN
-						inv_row_life_aux_p_two := row_pixel - inv_row_life_p_two;
-						inv_column_life_aux_p_two:= column_pixel - inv_column_life_p_two;
-						active_sprite_life_p_two := sprite_player(inv_row_life_aux_p_two)(inv_column_life_aux_p_two);
-						IF active_sprite_life_p_two = '1' THEN
+					(column_pixel >= inv_column_life and column_pixel < inv_column_life + limit_column_sprite_player)) THEN
+						inv_row_life_aux := row_pixel - inv_row_life;
+						inv_column_life_aux:= column_pixel - inv_column_life;
+						active_sprite_life := sprite_player(inv_row_life_aux)(inv_column_life_aux);
+						IF active_sprite_life = '1' THEN
 								RGBp <= "001";
 						ELSE
 								RGBp <= "000";

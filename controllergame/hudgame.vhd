@@ -16,7 +16,7 @@ end hudgame;
 
 architecture behavior of hudgame is
 	signal cood_initial_life_player_one: list_coordinates_life := ((10, 30), (10, 72), (10, 114), (10, 156), (10, 198), (10, 240), (10, 282), (10, 324) ,(10, 366));
-	signal cood_initial_life_player_two: list_coordinates_life := ((30, 30), (30, 72), (30, 114), (30, 156), (30, 198), (30, 240), (30, 282), (30, 324) ,(30, 366));
+	signal cood_initial_life_player_two: list_coordinates_life := ((40, 30), (40, 72), (40, 114), (40, 156), (40, 198), (40, 240), (40, 282), (40, 324) ,(40, 366));
 	signal cood_life_player_one: list_coordinates_life := cood_initial_life_player_one;
 	signal cood_life_player_two: list_coordinates_life := cood_initial_life_player_two;
 begin

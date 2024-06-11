@@ -67,8 +67,6 @@ begin
 									local_colidiu := '1';
 									tiro_collision_aux(0) <= '1';
 									life_invasores_aux(invasor) <= 0;
-							  else
-									life_invasores_aux(invasor) <= 1;
 							  end if;
 						 end if;
 					end loop;
@@ -90,8 +88,6 @@ begin
 									local_colidiu := '1';
 									tiro_collision_aux(1) <= '1';
 									life_invasores_aux(invasor) <= 0;
-							  else
-									life_invasores_aux(invasor) <= 1;
 							  end if;
 						 end if;
 					end loop;
