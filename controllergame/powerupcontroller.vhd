@@ -8,6 +8,7 @@ entity powerupcontroller is
 port(
 	reset: in std_logic;
 	clock: in std_logic;
+	estado_jogo: in states_game;
 	tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
 	powerup_players: out list_powerup_player
 
@@ -23,14 +24,16 @@ begin
 		IF reset = '0' THEN
 			powerup_players_aux(0) <= 0;
 		ELSIF rising_edge(clock) THEN
-			IF tiro_players_collision(0) = '1' THEN
-				inimigos_derrotados := inimigos_derrotados + 1;	
-				powerup_players_aux(0) <= 0;
-			END IF;
-			IF inimigos_derrotados = 5 THEN
-				powerup_players_aux(0) <= 1;
-				inimigos_derrotados := 1;
-			END IF;
+			 IF estado_jogo = GAMERSTART THEN
+				IF tiro_players_collision(0) = '1' THEN
+					inimigos_derrotados := inimigos_derrotados + 1;	
+					powerup_players_aux(0) <= 0;
+				END IF;
+				IF inimigos_derrotados = 5 THEN
+					powerup_players_aux(0) <= 1;
+					inimigos_derrotados := 1;
+				END IF;
+			 END IF;		
 		END IF;
 		powerup_players(0) <= powerup_players_aux(0);
 	end process powerup_player_one;
@@ -43,14 +46,16 @@ begin
 		IF reset = '0' THEN
 			powerup_players_aux(1) <= 0;
 		ELSIF rising_edge(clock) THEN
-			IF tiro_players_collision(1) = '1' THEN
-				inimigos_derrotados := inimigos_derrotados + 1;
-				powerup_players_aux(1) <= 0;
-			END IF;
-			IF inimigos_derrotados = 5 THEN
-				powerup_players_aux(1) <= 1;
-				inimigos_derrotados := 1;
-			END IF;
+			IF estado_jogo = GAMERSTART THEN
+				IF tiro_players_collision(1) = '1' THEN
+					inimigos_derrotados := inimigos_derrotados + 1;
+					powerup_players_aux(1) <= 0;
+				END IF;
+				IF inimigos_derrotados = 5 THEN
+					powerup_players_aux(1) <= 1;
+					inimigos_derrotados := 1;
+				END IF;
+			END IF;	
 		END IF;
 		powerup_players(1) <= powerup_players_aux(1);
 	end process powerup_player_two;

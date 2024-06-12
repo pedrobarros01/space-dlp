@@ -20,6 +20,7 @@ package controllergame is
 	port(
 		reset: in std_logic;
 		clock: in std_logic;
+		estado_jogo: in states_game;
 		mov_inv_vez: inout std_logic;
 		mov_esq_dir: inout std_logic;
 		state_desce: inout std_logic;
@@ -38,6 +39,7 @@ package controllergame is
 		coord_player: in list_coordinates_players;
 		coord_shoot: in list_coordinates_shoots;
 		life_invasores: in list_invasores_life;
+		life_players: in list_life_players;
 		shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 		shot_turn_inv: in  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
 		coord_shot_inv: in list_coordinates_shoots_invasores;
@@ -57,6 +59,8 @@ package controllergame is
 		reset: in std_logic;
 		clock: in std_logic;
 		player: in integer;
+		life_players: in list_life_players;
+		estado_jogo: in states_game;
 		movimento: in std_logic_vector(0 to 1);
 		coord_player: out list_coordinates_players
 	
@@ -68,6 +72,8 @@ package controllergame is
 		clock: in std_logic;
 		tiro: in std_logic_vector(0 to quantidade_players - 1);
 		tiro_vez: inout std_logic_vector(0 to quantidade_players - 1);
+		life_players: in list_life_players;
+		estado_jogo: in states_game;
 		coord_players: in list_coordinates_players;
 		coord_shot: inout list_coordinates_shoots;
 		tiro_collision: in std_logic_vector(0 to quantidade_players - 1)
@@ -84,6 +90,7 @@ package controllergame is
 		sorteio_invasor: in list_invasores_shoots_drawing;
 		coord_player: in list_coordinates_players;
 		coord_shot_inv: in list_coordinates_shoots_invasores;
+		estado_jogo: in states_game;
 		life_invasores: out list_invasores_life;
 		life_players: out list_life_players;
 		tiro_collision: out std_logic_vector(0 to quantidade_players - 1);
@@ -97,6 +104,7 @@ package controllergame is
 		life_invasores: in list_invasores_life;
 		coord_inv: in list_coordinates_invasores;
 		tiro_collision: in std_logic_vector(0 to quantidade_players - 1);
+		estado_jogo: in states_game;
 		coord_shot_inv: out list_coordinates_shoots_invasores;
 		sorteio_invasor: out list_invasores_shoots_drawing;
 		shot_turn_inv: inout std_logic_vector(0 to quantidade_invasores - 1);
@@ -108,6 +116,7 @@ package controllergame is
 		reset: in std_logic;
 		clock: in std_logic;
 		life_players: in list_life_players;
+		estado_jogo: in states_game;
 		coord_life_player_one: out list_coordinates_life;
 		coord_life_player_two: out list_coordinates_life
 	);
@@ -118,6 +127,7 @@ package controllergame is
 		clock: in std_logic;
 		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
 		powerup_players: in list_powerup_player;
+		estado_jogo: in states_game;
 		score_player_one: out integer;
 		score_player_two: out integer;
 		score_segment_player_one: out list_display_player_score;
@@ -128,6 +138,7 @@ package controllergame is
 	port(
 		reset: in std_logic;
 		clock: in std_logic;
+		estado_jogo: in states_game;
 		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
 		powerup_players: out list_powerup_player
 	);

@@ -9,6 +9,7 @@ entity invaderships is
 port(
 	reset: in std_logic;
 	clock: in std_logic;
+	estado_jogo: in states_game;
 	mov_inv_vez: inout std_logic;
 	mov_esq_dir: inout std_logic;
 	state_desce: inout std_logic;
@@ -37,12 +38,15 @@ begin
 			mov_esq_dir <= '0';
 			state_desce <= '0';
 		ELSIF rising_edge(clock) THEN
-			IF mov_inv_vez = '0' THEN
-				pixel_invasores <= pixel_invasores_inicial;
-				state_desce <= '0';
-				mov_esq_dir <= '0';
-				mov_inv_vez <= '1';
-			END IF;
+		  IF estado_jogo = GAMERSTART THEN
+				IF mov_inv_vez = '0' THEN
+					pixel_invasores <= pixel_invasores_inicial;
+					state_desce <= '0';
+					mov_esq_dir <= '0';
+					mov_inv_vez <= '1';
+				END IF;
+		  END IF;
+			
 		END IF;
 	end process invasor;
 

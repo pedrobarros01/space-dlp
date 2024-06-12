@@ -15,6 +15,7 @@ port(
 	sorteio_invasor: in list_invasores_shoots_drawing;
 	coord_player: in list_coordinates_players;
 	coord_shot_inv: in list_coordinates_shoots_invasores;
+	estado_jogo: in states_game;
 	life_invasores: out list_invasores_life;
 	life_players: out list_life_players;
 	tiro_collision: out std_logic_vector(0 to quantidade_players - 1);
@@ -52,6 +53,7 @@ begin
         if reset = '0' then
             --life_invasores_aux <= life_invasores_initial;
         elsif rising_edge(clock) then
+			 IF estado_jogo = GAMERSTART THEN
 				tiro_vez_aux <= shoot_turn;
 				if tiro_vez_aux(0) = '1' then
 					tiro_collision_aux(0) <= '0';
@@ -94,6 +96,9 @@ begin
 				else
 					tiro_collision_aux(1) <= '0';
 				end if;
+				
+			 END IF;
+			 
         end if;
 		  life_invasores <= life_invasores_aux;
 		  tiro_collision <= tiro_collision_aux;
@@ -117,6 +122,7 @@ begin
 			life_player_aux(0) <= 9;
 			tiro_collision_aux_inv(0) <= '0';
 		ELSIF rising_edge(clock) THEN
+		 IF estado_jogo = GAMERSTART THEN
 			tiro_vez_inv_aux := shot_turn_inv;
 			colidiu := '0';
 			FOR ind in 0 to 12 loop
@@ -150,6 +156,7 @@ begin
 				end if;
 			end loop;
 			life_player_aux(0) <= life;
+		 END IF;
 		END IF;
 			life_players(0) <= life_player_aux(0);
 			tiro_collision_inv(0) <= tiro_collision_aux_inv(0);
@@ -172,7 +179,8 @@ begin
 			life_player_aux(1) <= 9;
 			tiro_collision_aux_inv(1) <= '0';
 		ELSIF rising_edge(clock) THEN
-			tiro_vez_inv_aux := shot_turn_inv;
+		   IF estado_jogo = GAMERSTART THEN
+				tiro_vez_inv_aux := shot_turn_inv;
 			colidiu := '0';
 			FOR ind in 0 to 12 loop
 				invasor := sorteio_invasor(ind);
@@ -205,6 +213,8 @@ begin
 				end if;
 			end loop;
 			life_player_aux(1) <= life;
+			END IF;
+			
 		END IF;
 			life_players(1) <= life_player_aux(1);
 			tiro_collision_inv(1) <= tiro_collision_aux_inv(1);

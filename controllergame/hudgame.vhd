@@ -9,6 +9,7 @@ port(
 	reset: in std_logic;
 	clock: in std_logic;
 	life_players: in list_life_players;
+	estado_jogo: in states_game;
 	coord_life_player_one: out list_coordinates_life;
 	coord_life_player_two: out list_coordinates_life
 );
@@ -25,26 +26,29 @@ begin
 		IF reset = '0' THEN
 		cood_life_player_one <= cood_initial_life_player_one;
 		ELSIF rising_edge(clock) THEN
-			IF life_players(0) = 8 THEN
-				cood_life_player_one(8) <= (-1, -1);
-			ELSIF life_players(0) = 7 THEN
-				cood_life_player_one(7) <= (-1, -1);
-			ELSIF life_players(0) = 6 THEN
-				cood_life_player_one(6) <= (-1, -1);
-			ELSIF life_players(0) = 5 THEN
-				cood_life_player_one(5) <= (-1, -1);
-			ELSIF life_players(0) = 4 THEN 
-				cood_life_player_one(4) <= (-1, -1);
-			ELSIF life_players(0) = 3 THEN 
-				cood_life_player_one(3) <= (-1, -1);
-			ELSIF life_players(0) = 2 THEN
-				cood_life_player_one(2) <= (-1, -1);
-			ELSIF life_players(0) = 1 THEN
-				cood_life_player_one(1) <= (-1, -1);
-			ELSIF life_players(0) = 0 THEN
-				cood_life_player_one(0) <= (-1, -1);
+			IF estado_jogo = GAMERSTART THEN
+				IF life_players(0) = 8 THEN
+					cood_life_player_one(8) <= (-1, -1);
+				ELSIF life_players(0) = 7 THEN
+					cood_life_player_one(7) <= (-1, -1);
+				ELSIF life_players(0) = 6 THEN
+					cood_life_player_one(6) <= (-1, -1);
+				ELSIF life_players(0) = 5 THEN
+					cood_life_player_one(5) <= (-1, -1);
+				ELSIF life_players(0) = 4 THEN 
+					cood_life_player_one(4) <= (-1, -1);
+				ELSIF life_players(0) = 3 THEN 
+					cood_life_player_one(3) <= (-1, -1);
+				ELSIF life_players(0) = 2 THEN
+					cood_life_player_one(2) <= (-1, -1);
+				ELSIF life_players(0) = 1 THEN
+					cood_life_player_one(1) <= (-1, -1);
+				ELSIF life_players(0) = 0 THEN
+					cood_life_player_one(0) <= (-1, -1);
+				END IF;
+				coord_life_player_one <= cood_life_player_one;
 			END IF;
-			coord_life_player_one <= cood_life_player_one;
+			
 		END IF;
 	end process life_p_one;
 	
@@ -53,26 +57,28 @@ begin
 		IF reset = '0' THEN
 		cood_life_player_two <= cood_initial_life_player_two;
 		ELSIF rising_edge(clock) THEN
-			IF life_players(1) = 8 THEN
-				cood_life_player_two(8) <= (-1, -1);
-			ELSIF life_players(1) = 7 THEN
-				cood_life_player_two(7) <= (-1, -1);
-			ELSIF life_players(1) = 6 THEN
-				cood_life_player_two(6) <= (-1, -1);
-			ELSIF life_players(1) = 5 THEN
-				cood_life_player_two(5) <= (-1, -1);
-			ELSIF life_players(1) = 4 THEN 
-				cood_life_player_two(4) <= (-1, -1);
-			ELSIF life_players(1) = 3 THEN 
-				cood_life_player_two(3) <= (-1, -1);
-			ELSIF life_players(1) = 2 THEN
-				cood_life_player_two(2) <= (-1, -1);
-			ELSIF life_players(1) = 1 THEN
-				cood_life_player_two(1) <= (-1, -1);
-			ELSIF life_players(1) = 0 THEN
-				cood_life_player_two(0) <= (-1, -1);
-			END IF;
-			coord_life_player_two <= cood_life_player_two;
+			IF estado_jogo = GAMERSTART THEN
+				IF life_players(1) = 8 THEN
+					cood_life_player_two(8) <= (-1, -1);
+				ELSIF life_players(1) = 7 THEN
+					cood_life_player_two(7) <= (-1, -1);
+				ELSIF life_players(1) = 6 THEN
+					cood_life_player_two(6) <= (-1, -1);
+				ELSIF life_players(1) = 5 THEN
+					cood_life_player_two(5) <= (-1, -1);
+				ELSIF life_players(1) = 4 THEN 
+					cood_life_player_two(4) <= (-1, -1);
+				ELSIF life_players(1) = 3 THEN 
+					cood_life_player_two(3) <= (-1, -1);
+				ELSIF life_players(1) = 2 THEN
+					cood_life_player_two(2) <= (-1, -1);
+				ELSIF life_players(1) = 1 THEN
+					cood_life_player_two(1) <= (-1, -1);
+				ELSIF life_players(1) = 0 THEN
+					cood_life_player_two(0) <= (-1, -1);
+				END IF;
+				coord_life_player_two <= cood_life_player_two;
+			END IF;		
 		END IF;
 	end process life_p_two;
 end behavior;

@@ -9,6 +9,8 @@ port(
 	reset: in std_logic;
 	clock: in std_logic;
 	player: in integer;
+	life_players: in list_life_players;
+	estado_jogo: in states_game;
 	movimento: in std_logic_vector(0 to 1);
 	coord_player: out list_coordinates_players
 );
@@ -28,6 +30,7 @@ begin
 		IF reset = '0' THEN
 			coord_player(player) <= coord_player_mov(player);
 		ELSIF rising_edge(clock) THEN
+			IF life_players(player) > 0 and estado_jogo = GAMERSTART THEN
 				IF movimento(0) = '0' and movimento(1) = '1'  THEN
 					mov_column := coord_player_mov(player)(1) - mov_size;
 					IF mov_column < 0 THEN
@@ -41,6 +44,7 @@ begin
 					END IF;
 					coord_player_mov(player)(1) <= mov_column;
 				END IF;
+			END IF;		
 		END IF;
 		coord_player(player) <= coord_player_mov(player);
 	end process mov_player;

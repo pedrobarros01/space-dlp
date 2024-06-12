@@ -84,6 +84,7 @@ architecture behavior of spaceinvaders is
 	invs: invaderships port map(
 		reset => resetgeral,
 		clock => novoclockplayer,
+		estado_jogo => estado_jogo,
 		mov_inv_vez => mov_inv_vez,
 		mov_esq_dir => mov_esq_dir,
 		state_desce => state_desce,
@@ -93,6 +94,8 @@ architecture behavior of spaceinvaders is
 		reset => resetgeral,
 		clock => novoclockplayer,
 		player => 0,
+		life_players => life_players,
+		estado_jogo => estado_jogo,
 		movimento => movimentoplayer,
 		coord_player => coordinate_player_one 
 	);
@@ -100,6 +103,8 @@ architecture behavior of spaceinvaders is
 		reset => resetgeral,
 		clock => novoclockplayer,
 		player => 1,
+		life_players => life_players,
+		estado_jogo => estado_jogo,
 		movimento => movimentoplayer_two,
 		coord_player => coordinate_player_two 
 	);
@@ -107,6 +112,8 @@ architecture behavior of spaceinvaders is
 		reset => resetgeral,
 		clock => novoclockplayer,
 		tiro => tiroplayer,
+		life_players => life_players,
+		estado_jogo => estado_jogo,
 		tiro_vez => tiro_vez,
 		coord_players => coordinate_player,
 		coord_shot => coordinate_shoots,
@@ -125,6 +132,7 @@ architecture behavior of spaceinvaders is
 		coord_player => coordinate_player,
 		coord_shoot => coordinate_shoots,
 		life_invasores => life_invasores,
+		life_players => life_players,
 		shoot_turn => tiro_vez,
 		coord_shot_inv => coord_shot_inv,
 		shot_turn_inv => shot_turn_inv,
@@ -150,6 +158,7 @@ architecture behavior of spaceinvaders is
 		coord_player => coordinate_player,
 		coord_shot_inv => coord_shot_inv,
 		tiro_collision => tiro_collision,
+		estado_jogo => estado_jogo,
 		life_invasores => life_invasores,
 		life_players => life_players,
 		tiro_collision_inv => tiro_collision_inv
@@ -162,6 +171,7 @@ architecture behavior of spaceinvaders is
 		life_invasores => life_invasores,
 		coord_inv => pixel_list_coordinates_inv,
 		tiro_collision => tiro_collision,
+		estado_jogo => estado_jogo,
 		coord_shot_inv => coord_shot_inv,
 		sorteio_invasor => sorteio_invasor,
 		shot_turn_inv => shot_turn_inv,
@@ -172,6 +182,7 @@ architecture behavior of spaceinvaders is
 		reset => resetgeral,
 		clock => novoclockplayer,
 		life_players => life_players,
+		estado_jogo => estado_jogo,
 		coord_life_player_one => coord_life_player_one,
 		coord_life_player_two => coord_life_player_two
 	);
@@ -180,6 +191,7 @@ architecture behavior of spaceinvaders is
 		clock => novoclockplayer,
 		tiro_players_collision => tiro_collision,
 		powerup_players => powerup_players,
+		estado_jogo => estado_jogo,
 		score_player_one => score_player_one,
 		score_player_two => score_player_two,
 		score_segment_player_one => score_segment_player_one,
@@ -188,6 +200,7 @@ architecture behavior of spaceinvaders is
 	powerup: powerupcontroller port map (
 		reset => resetgeral,
 		clock => novoclockplayer,
+		estado_jogo => estado_jogo,
 		tiro_players_collision => tiro_collision,
 		powerup_players => powerup_players
 		

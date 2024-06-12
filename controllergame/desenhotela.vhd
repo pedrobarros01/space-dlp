@@ -15,6 +15,7 @@ port(
 	coord_player: in list_coordinates_players;
 	coord_shoot: in list_coordinates_shoots;
 	life_invasores: in list_invasores_life;
+	life_players: in list_life_players;
 	shoot_turn: in std_logic_vector(0 to quantidade_players - 1);
 	shot_turn_inv: in  std_logic_vector(0 to quantidade_invasores - 1) := "000000000000000000000000000000000000000";
 	coord_shot_inv: in list_coordinates_shoots_invasores;
@@ -106,6 +107,7 @@ begin
 							(row_pixel >= inv_row_player and row_pixel < inv_row_player + limit_row_sprite_player) 
 							and 
 							(column_pixel >= inv_column_player and column_pixel < inv_column_player + limit_column_sprite_player) 
+							and life_players(player) > 0
 						) THEN
 							inv_row_player_aux := row_pixel - inv_row_player;
 							inv_column_player_aux := column_pixel - inv_column_player;
@@ -124,6 +126,8 @@ begin
 						IF((row_pixel >= inv_row_shoot and row_pixel < inv_row_shoot + limit_row_sprite_shoot) 
 							and 
 							(column_pixel >= inv_column_shoot and column_pixel < inv_column_shoot + limit_column_sprite_shoot)
+							and
+							life_players(shoot) > 0
 						) THEN
 							inv_row_shoot_aux := row_pixel - inv_row_shoot;
 							inv_column_shoot_aux := column_pixel - inv_column_shoot;
