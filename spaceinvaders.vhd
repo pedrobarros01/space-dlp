@@ -53,6 +53,10 @@ architecture behavior of spaceinvaders is
 	signal score_segment_player_one:  list_display_player_score;
 	signal score_Segment_player_two:  list_display_player_score;
 	signal powerup_players: list_powerup_player;
+	signal score_player_one: integer;
+	signal score_player_two: integer;
+	signal player_win: integer;
+	signal estado_jogo: states_game;
 	begin
 	coordinate_player(0) <= coordinate_player_one(0);
 	coordinate_player(1) <= coordinate_player_two(1);
@@ -128,6 +132,8 @@ architecture behavior of spaceinvaders is
 		coord_life_player_one => coord_life_player_one,
 		coord_life_player_two => coord_life_player_two,
 		powerup_players => powerup_players,
+		estado_jogo => estado_jogo,
+		player_win => player_win,
 		R => red,
 		G => green,
 		B => blue
@@ -174,6 +180,8 @@ architecture behavior of spaceinvaders is
 		clock => novoclockplayer,
 		tiro_players_collision => tiro_collision,
 		powerup_players => powerup_players,
+		score_player_one => score_player_one,
+		score_player_two => score_player_two,
 		score_segment_player_one => score_segment_player_one,
 		score_Segment_player_two => score_Segment_player_two
 	);
@@ -183,6 +191,17 @@ architecture behavior of spaceinvaders is
 		tiro_players_collision => tiro_collision,
 		powerup_players => powerup_players
 		
+	);
+	rules: gamerules port map (
+		reset => resetgeral,
+		clock => novoclockplayer,
+		life_invasores => life_invasores,
+		life_players => life_players,
+		score_player_one => score_player_one,
+		score_player_two => score_player_two,
+		player_win => player_win,
+		estado_jogo => estado_jogo
+	
 	);
 	disp_p_one_dec: display port map(
 		number => score_segment_player_one(0),

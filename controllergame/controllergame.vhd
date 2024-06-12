@@ -45,6 +45,8 @@ package controllergame is
 		coord_life_player_one: in list_coordinates_life;
 		coord_life_player_two: in list_coordinates_life;
 		powerup_players: in list_powerup_player;
+		estado_jogo: in states_game;
+		player_win: in integer;
 		R: out std_logic;
 		G: out std_logic;
 		B: out std_logic
@@ -116,6 +118,8 @@ package controllergame is
 		clock: in std_logic;
 		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
 		powerup_players: in list_powerup_player;
+		score_player_one: out integer;
+		score_player_two: out integer;
 		score_segment_player_one: out list_display_player_score;
 		score_Segment_player_two: out list_display_player_score
 	);
@@ -126,6 +130,18 @@ package controllergame is
 		clock: in std_logic;
 		tiro_players_collision: in std_logic_vector(0 to quantidade_players - 1);
 		powerup_players: out list_powerup_player
+	);
+	end component;
+	component gamerules is
+	port(
+		reset: in std_logic;
+		clock: in std_logic;
+		life_invasores: in list_invasores_life;
+		life_players: in list_life_players;
+		score_player_one: in integer;
+		score_player_two: in integer;
+		player_win: out integer;
+		estado_jogo: out states_game
 	);
 	end component;
 end package;
