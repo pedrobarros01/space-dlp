@@ -38,9 +38,6 @@ architecture behavior of spaceinvaders is
 	signal coordinate_player_two: list_coordinates_players;
 	signal tiro_vez: std_logic_vector(0 to quantidade_players - 1) := "00";
 	signal coordinate_shoots: list_coordinates_shoots;
-	signal mov_esq_dir: std_logic := '0';
-	signal mov_inv_vez: std_logic := '0';
-	signal state_desce: std_logic := '0';
 	signal life_invasores: list_invasores_life;
 	signal tiro_collision: std_logic_vector(0 to quantidade_players - 1) := "00";
 	signal tiro_collision_inv: std_logic_vector(0 to quantidade_players - 1) := "00";
@@ -85,9 +82,6 @@ architecture behavior of spaceinvaders is
 		reset => resetgeral,
 		clock => novoclockplayer,
 		estado_jogo => estado_jogo,
-		mov_inv_vez => mov_inv_vez,
-		mov_esq_dir => mov_esq_dir,
-		state_desce => state_desce,
 		pixel_invasores => pixel_list_coordinates_inv
 	);
 	player_one: playership port map(

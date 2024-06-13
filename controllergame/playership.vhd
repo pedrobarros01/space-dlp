@@ -28,7 +28,7 @@ begin
 		variable mov_column: integer;
 	begin
 		IF reset = '0' THEN
-			coord_player(player) <= coord_player_mov(player);
+			coord_player(player) <= coord_player_initial(player);
 		ELSIF rising_edge(clock) THEN
 			IF life_players(player) > 0 and estado_jogo = GAMERSTART THEN
 				IF movimento(0) = '0' and movimento(1) = '1'  THEN

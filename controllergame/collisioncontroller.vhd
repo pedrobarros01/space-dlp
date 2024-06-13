@@ -51,7 +51,8 @@ begin
         variable local_colidiu: std_logic := '0';
     begin    
         if reset = '0' then
-            --life_invasores_aux <= life_invasores_initial;
+            life_invasores_aux <= life_invasores_initial;
+				tiro_collision_aux <= "00";
         elsif rising_edge(clock) then
 			 IF estado_jogo = GAMERSTART THEN
 				tiro_vez_aux <= shoot_turn;

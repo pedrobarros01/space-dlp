@@ -30,15 +30,15 @@ begin
 	variable player_won: integer;
 	begin
 		IF reset = '0' THEN
-		
+			state_rule_one <= GAMERSTART;
 		ELSIF rising_edge(clock) THEN
-			enemys_dieds := 37;
+			enemys_dieds := 0;
 			FOR inv in 0 to quantidade_invasores - 1 LOOP
 				IF life_invasores(inv) = 0 THEN
 					enemys_dieds := enemys_dieds + 1;
 				END IF;
 			END LOOP;
-			IF enemys_dieds = 38 THEN
+			IF enemys_dieds  = 39 THEN
 				IF score_player_one > score_player_two THEN
 					player_won := 0;
 				ELSE
@@ -56,7 +56,7 @@ begin
 	rule_two_player_died: process(reset, clock)
 	begin
 		IF reset = '0' THEN
-			
+			state_rule_two <= GAMERSTART;
 		ELSIF rising_edge(clock) THEN
 			IF life_players(0) <= 0  and life_players(1) <= 0 THEN
 				state_rule_two <= GAMEROVER;

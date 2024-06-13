@@ -24,7 +24,7 @@ begin
 	life_p_one: process(reset, clock)
 	begin
 		IF reset = '0' THEN
-		cood_life_player_one <= cood_initial_life_player_one;
+			cood_life_player_one <= cood_initial_life_player_one;
 		ELSIF rising_edge(clock) THEN
 			IF estado_jogo = GAMERSTART THEN
 				IF life_players(0) = 8 THEN
@@ -55,7 +55,7 @@ begin
 	life_p_two: process(reset, clock)
 	begin
 		IF reset = '0' THEN
-		cood_life_player_two <= cood_initial_life_player_two;
+			cood_life_player_two <= cood_initial_life_player_two;
 		ELSIF rising_edge(clock) THEN
 			IF estado_jogo = GAMERSTART THEN
 				IF life_players(1) = 8 THEN

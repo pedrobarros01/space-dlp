@@ -24,6 +24,7 @@ architecture behavior of shotinvasorcontroller is
 	signal cont_item: integer := 0;
 	signal sorteio_ind_invasor_aux: list_invasores_shoots_drawing;
 	signal sorteio_ind_invasor: list_invasores_shoots_drawing;
+	signal sorteio_aux: std_logic := '0';
 	
 begin
 	sorteio: process(reset, clock)
@@ -31,47 +32,53 @@ begin
 		variable sorteio_items: integer:= 13;
 		variable i: integer := 0;
 		variable cont_item_aux: integer := 1;
-		variable sorteado: integer := 0;
+		variable sorteado: std_logic := '0';
 		variable item: integer;
+		variable sorteio: std_logic;
 		
 	begin
 		
 		IF reset = '0' THEN
+			
 			sorteio_list := (-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 			cont_item_aux := 0;
+			sorteio_aux <= '0';
 		ELSIF rising_edge(clock) THEN
 			IF estado_jogo = GAMERSTART THEN
 				IF shot_turn_inv = "000000000000000000000000000000000000000" THEN
+					sorteio := sorteio_aux;
 					i := 0;
 					cont_item_aux := 0;
 					sorteio_list := (-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 					FOR inv in 0 to quantidade_invasores - 1 LOOP
 						if inv >= 0 and inv < 13 and i < 13 then
 							if life_invasores(inv + 13) = 0 and life_invasores(inv + 26) = 0 and life_invasores(inv) = 1 then
-								sorteado := 1;
+								sorteado := sorteio;
 							else
-								sorteado := 0;
+								sorteado := '0';
 							end if;
 						elsif inv >= 13 and inv < 26  and i < 13 then
 							if life_invasores(inv + 13) = 0 and life_invasores(inv) = 1 then
-								sorteado := 1;
+								sorteado := sorteio;
 							else
-								sorteado := 0;
+								sorteado := '0';
 							end if;
 						elsif inv >= 26  and i < 13 then
 							if life_invasores(inv) = 1 then
-								sorteado := 1;
+								sorteado := sorteio;
 							else
-								sorteado := 0;
+								sorteado := '0';
 							end if;
 						end if;
-						if sorteado = 1 and i < 13 then
+						if sorteado = '1' and i < 13 then
 							sorteio_list(i) := inv;
 							i := i + 1;
 						end if;
+						sorteio := not sorteio;
 						cont_item_aux := cont_item_aux + 1;
 					END LOOP;
 					sorteio_ind_invasor_aux <= sorteio_list;
+					sorteio_aux <= sorteio;
 				ELSE
 					cont_item_aux := 38;
 				END IF;
@@ -91,7 +98,7 @@ begin
 		
 	begin
 		IF reset = '0' THEN
-			shots_turn_inv := "000000000000000000000000000000000000000";
+			shot_turn_inv <= "000000000000000000000000000000000000000";
 		ELSIF rising_edge(clock) THEN
 			IF estado_jogo = GAMERSTART THEN
 				shots_turn_inv := shot_turn_inv;
