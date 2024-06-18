@@ -12,7 +12,8 @@ Esse projeto é uma recriação do antigo jogo SpaceInvaders, mas com algumas no
 
 ## Demonstração
 Segue alguns videos para demonstrar o projeto
-<video src="video.mp4" width="320" height="240" controls></video>
+
+<video src="./video.mp4" width="320" height="240" controls></video>
 
 ## Sobre
 Como citado anteriormente, esse projeto é uma recriação do spaceinvaders para a materia de Dispositivos Lógicos Programaveis do Senai Cimatec, desenvolvido em equipe. Essa recriação consta com algumas novidades não tão novidades assim, player 2 e powerup para os players.
